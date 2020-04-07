@@ -7,8 +7,15 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:context=".views.MainActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@android:color/holo_purple"
+            app:title="@string/shoe_shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <fragment
             android:id="@+id/main_fragment"
