@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 
 import com.udacity.shoestore.R
 import com.udacity.shoestore.ShoeViewModel
 import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
+import com.udacity.shoestore.models.Shoe
 
 class ShoeDetailFragment : Fragment() {
 
@@ -27,30 +26,10 @@ class ShoeDetailFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_detail, container, false)
 
-        arguments?.let { binding.shoe = ShoeDetailFragmentArgs.fromBundle(it).shoe }
+        val shoe = ShoeDetailFragmentArgs.fromBundle(arguments!!).shoe
 
-        binding.btnCancel.setOnClickListener {
-            findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeList)
-        }
-
-        binding.btnSave.setOnClickListener {
-            // Save the shoe item
-            with(binding) {
-                if (editShoeName.text.isNotEmpty() &&
-                        editShoeSize.text.isNotEmpty() &&
-                        editShoeCompany.text.isNotEmpty() &&
-                        editDescription.text.isNotEmpty()) {
-
-                    viewModel.save(editShoeName.text.toString(),
-                        editShoeSize.text.toString().toDouble(),
-                        editShoeCompany.text.toString(),
-                        editDescription.text.toString())
-
-                    findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeList)
-
-                } else Toast.makeText(requireContext(), "Empty values", Toast.LENGTH_LONG).show()
-            }
-        }
+        binding.shoe = shoe ?: Shoe("", 0.0, "", "")
+        binding.viewModel = viewModel
 
         return binding.root
     }

@@ -2,7 +2,6 @@ package com.udacity.shoestore.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: ShoeViewModel
     private lateinit var viewModelFactory: ShoeViewModelFactory
 
-    private var hideMenu = true
+    private var menuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +36,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.main_fragment)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            hideMenu = destination.label != "ShoeList"
-
-            invalidateOptionsMenu()
+            if (destination.label != "ShoeList") hideMenu()
+            else showMenu()
         }
+
+        setSupportActionBar(binding.toolbar)
 
         binding.toolbar.setupWithNavController(navController, AppBarConfiguration(navController.graph))
     }
@@ -49,9 +49,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu, menu)
 
-        menu!!.findItem(R.id.loginFragment).isVisible = !hideMenu
+        menuItem = menu!!.getItem(0)
+        menuItem?.isVisible = false // Set not visible at first
 
         return true
+    }
+
+    private fun hideMenu() {
+        menuItem?.isVisible = false
+    }
+
+    private fun showMenu() {
+        menuItem?.isVisible = true
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -9,6 +9,12 @@
             name="shoe"
             type="com.udacity.shoestore.models.Shoe" />
 
+        <variable
+            name="viewModel"
+            type="com.udacity.shoestore.ShoeViewModel" />
+
+        <import type="com.udacity.shoestore.utils.Conversions"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +39,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:text="@={shoe.name}"
             android:hint="@string/shoe_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_shoe_title" />
@@ -43,6 +50,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:text="@={shoe.company}"
             android:hint="@string/shoe_company"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_shoe_name" />
@@ -53,6 +61,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:text="@={Conversions.toString(shoe.size)}"
             android:hint="@string/shoe_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_shoe_company" />
@@ -63,6 +72,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:text="@={shoe.description}"
             android:hint="@string/shoe_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_shoe_size" />
@@ -72,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
+            android:onClick="@{() -> viewModel.save(editShoeName, editShoeSize, editShoeCompany, editDescription)}"
             app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
             app:layout_constraintEnd_toEndOf="@+id/edit_description"
             app:layout_constraintHorizontal_bias="0.072"
@@ -84,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
+            android:onClick="@{(view) -> viewModel.cancel(view)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
@@ -111,7 +123,7 @@
             android:id="@+id/size"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{Double.toString(shoe.size)}"
+            android:text="@{Conversions.toString(shoe.size)}"
             app:layout_constraintBottom_toBottomOf="@+id/edit_shoe_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_shoe_size"
