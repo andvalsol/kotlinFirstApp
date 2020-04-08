@@ -42,19 +42,12 @@ class ShoeList : Fragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
 
-                textView.setOnClickListener {
-                    findNavController().navigate(ShoeListDirections.actionShoeListToShoeDetailFragment(shoe))
-                }
-
                 binding.shoeListLayout.addView(textView)
             }
         })
 
-        binding.fabAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_shoeList_to_shoeDetailFragment)
-        }
+        binding.viewModel = viewModel
 
         return binding.root
     }
-
 }

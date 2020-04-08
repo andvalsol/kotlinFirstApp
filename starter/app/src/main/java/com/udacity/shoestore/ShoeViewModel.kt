@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.models.Shoe
 
 class ShoeViewModel : ViewModel() {
@@ -23,6 +22,10 @@ class ShoeViewModel : ViewModel() {
 
     fun showInstructionsScreen(view: View) {
         view.findNavController().navigate(R.id.action_welcomeFragment_to_instructionsFragment)
+    }
+
+    fun showShoeDetail(view: View) {
+        view.findNavController().navigate(R.id.action_shoeList_to_shoeDetailFragment)
     }
 
     fun showShoeList(view: View) {
